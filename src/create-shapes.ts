@@ -35,7 +35,7 @@ export default class Shape {
             (posX - radius) < 0 ? posX += (radius - posX) : null; 
             (posX + radius) > stageWidth ? posX = (stageWidth - radius): null;
             shape.name = 'circle';
-            shape.drawCircle(posX, posY || radius, radius);
+            shape.drawCircle(posX, posY || -radius, radius);
             shapes.circles.push(shape);    
         }
         function createEllipse(posX, posY){
