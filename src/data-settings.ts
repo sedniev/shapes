@@ -28,6 +28,7 @@ export class ExistedShapes {
     triangles: PIXI.Graphics[];
     pentagons: PIXI.Graphics[];
     hexagons: PIXI.Graphics[];
+    unusualShapes: PIXI.Graphics[];
     
     constructor (){
         this.rectangles = [];
@@ -36,10 +37,11 @@ export class ExistedShapes {
         this.triangles = [];
         this.pentagons = [];
         this.hexagons = [];
+        this.unusualShapes = [];
     };
 
     public calcQuantity(): number {
-        return this.rectangles.length + this.circles.length + this.ellipses.length + this.triangles.length + this.pentagons.length + this.hexagons.length; 
+        return this.rectangles.length + this.circles.length + this.ellipses.length + this.triangles.length + this.pentagons.length + this.hexagons.length + this.unusualShapes.length; 
     };
     public calcRectArea(): number {
         let totalRectArea = 0;
@@ -86,7 +88,13 @@ export class ExistedShapes {
         });
         return totalHexagonArea;
     }
-
+    public calcUnusualShapesArea(): number {
+        let totalUnusualShapesArea = 0;
+        this.unusualShapes.forEach(item => {
+            totalUnusualShapesArea += item.height * item.width;
+        });
+        return totalUnusualShapesArea
+    }
 };
 
 export const shapes = new ExistedShapes;

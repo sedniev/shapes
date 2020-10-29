@@ -6,7 +6,7 @@ export function calcShapes (): void {
 }
 
 export function calcSurfaceArea(): void {
-    let totalSurfaceArea = String (shapes.calcRectArea() + shapes.calcCircleArea() + shapes.calcEllipseArea() + shapes.calcTriangleArea() + shapes.calcPentagonArea() + shapes.calcHexagonArea());
+    let totalSurfaceArea = String (shapes.calcRectArea() + shapes.calcCircleArea() + shapes.calcEllipseArea() + shapes.calcTriangleArea() + shapes.calcPentagonArea() + shapes.calcHexagonArea() + shapes.calcUnusualShapesArea());
     document.querySelector('#surfaceArea').innerHTML = totalSurfaceArea;
   
     

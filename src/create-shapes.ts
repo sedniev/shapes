@@ -53,7 +53,7 @@ export default class Shape {
             let height = generatePoint();
             
             shape.name = 'triangle';
-            shape.moveTo(posX, posY );
+            shape.moveTo(posX, posY || -height );
             shape.lineTo(posX+bX, posY);
             shape.lineTo(posX+bX/2, posY-height);
             shape.lineTo(posX, posY);
@@ -69,12 +69,12 @@ export default class Shape {
             let convex: number = generateValue(scale*2);
             
             
-            let path: number[] = (type == 'pentagon')? [ posX, posY, 
+            let path: number[] = (type == 'pentagon')? [ posX, posY || -height, 
                                                         posX-bx, posY, 
                                                         posX-bx-convex, posY-height/2, 
                                                         posX-bx/2, posY-height, 
                                                         posX+convex, posY-height/2]:
-                                (type == 'hexagon')? [  posX, posY, 
+                                (type == 'hexagon')? [  posX, posY || -height, 
                                                         posX-bx, posY, 
                                                         posX-bx-convex, posY-height/2, 
                                                         posX-bx, posY-height, 
@@ -88,8 +88,32 @@ export default class Shape {
             (type=="hexagon")? shapes.hexagons.push(shape): null 
             shape.name = type;
         }
+        function createRandomShape(startX:number, startY:number){
+            let posX = startX -100;
+            let posY = startY -200 || generateValue(scale) - 250;
+            shape.moveTo(100, 200 );           
+            shape.bezierCurveTo(120, 235, 135, 235, 150, 200 ); //A->B
+            shape.bezierCurveTo(170, 235, 185, 235, 200, 200 ); //B->C 
+            shape.bezierCurveTo(220, 170, 220, 145, 200, 125 ); //C->D
+            shape.bezierCurveTo(220, 100, 220, 75, 200, 50 ); //D->E
+            shape.bezierCurveTo(185, 15 , 170 , 15 , 150, 50 ); //E->F
+            shape.bezierCurveTo(135, 15 , 120 , 15 , 100, 50 ); //F->G
+            shape.bezierCurveTo(80, 75 , 80 , 100 , 100, 125 ); //G->H
+            shape.bezierCurveTo(80, 145 , 80 , 170 , 100, 200 ); //H->A
+            let ratio = Math.random();
+            let height = shape.height;
+            shape.x = posX;
+            shape.y = posY || -height;
+            shape.rotation = Math.random();
+            shape.scale.set(ratio);
+            //shape.clear();
+            shape.moveTo(posX,posY);
+            shape.name = 'unusualShape';
+            shapes.unusualShapes.push(shape);
 
-        let shapesCreateFuncs = [createRect, createCircle, createEllipse, createTriangle, createPolygon, createPolygon];
+        }
+
+        let shapesCreateFuncs = [createRect, createCircle, createEllipse, createTriangle, createPolygon, createPolygon, createRandomShape];
         
         shape.beginFill(Math.random() * 0xffffff);
         let i = Math.floor(Math.random() * shapesCreateFuncs.length);
@@ -98,7 +122,6 @@ export default class Shape {
                                                         shapesCreateFuncs[i](this.posX, this.posY, null );
         
         shape.endFill();
-        shape.position.y = - shape.height;
         return shape;
     }
     
