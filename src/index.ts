@@ -24,7 +24,9 @@ function generateFigure(positionX?: number, positionY?: number){
 }
 
 function startGenerateShapes (){
-    interval = setInterval(generateFigure, changeGenerationSpeed());
+    interval = setInterval(() => {
+        !document.hidden? generateFigure(): null
+    }, changeGenerationSpeed());
 }
 
 
